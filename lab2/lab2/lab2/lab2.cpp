@@ -32,7 +32,37 @@ int main()
             cin.clear();
             cin.ignore(INT_MAX, '\n');
         }
-    } while(purchaseAmount == -1 || amountTendered == -1);
+    } while(purchaseAmount < 0 || amountTendered < 0);
+    
+    //Create a variable to store the amount of change
+    float change;
+    
+    //Determine the amount of change
+    change = amountTendered - purchaseAmount;
+    cout << "The change is " << change <<endl;
+    
+    //create a variable for the amount of 50 dollar bills needed for change
+    int fiftyBill = 0;
+    
+    //Determine if $50 bills should be given as part of the change
+    if(change > 49.99)
+    {
+        while(change > 49.99)
+        {
+            change = change - 50;
+            fiftyBill++;
+            
+        }
+        
+        if(fiftyBill > 1)
+        {
+            cout << fiftyBill << " $50 bills" << endl;
+        }
+        else
+        {
+            cout << fiftyBill << "$50 bill" << endl;
+        }
+    }
     return 0;
 }
 
