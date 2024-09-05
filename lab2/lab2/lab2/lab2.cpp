@@ -15,11 +15,24 @@ using std::ios;
 int main()
 {
     //Create float variable for amount of purchase
-    float purchaseAmount;
+    float purchaseAmount = -1;
     
     //Create float variable for amount tendered
-    float amountTendered;
+    float amountTendered = -1;
     
+    do
+    {
+        cout << "Enter the amount of the purchase and the amount tendered (separated by a space): " << endl;
+        cin >> purchaseAmount;
+        cin >> amountTendered;
+        cout << "The purchase amount is " << purchaseAmount << endl;
+        cout << "The amount tendered is " << amountTendered << endl;
+        if(cin.fail())
+        {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+        }
+    } while(purchaseAmount == -1 || amountTendered == -1);
     return 0;
 }
 
