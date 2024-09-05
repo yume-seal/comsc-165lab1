@@ -14,6 +14,12 @@ using std::ios;
 
 int main()
 {
+    //Create float variable for amount of purchase
+    float purchaseAmount;
+    
+    //Create float variable for amount tendered
+    float amountTendered;
+    
     return 0;
 }
 
