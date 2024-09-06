@@ -129,6 +129,29 @@ int main()
             cout << fiveBill << " $5 bill" << endl;
         }
     }
+    
+    //create a variable for the amount of 1 dollar bills needed for change
+    int oneBill = 0;
+    
+    //Determine if $1 bills should be given as part of the change
+    if(change > 0.99)
+    {
+        while(change > 0.99)
+        {
+            change = change -1;
+            oneBill++;
+        }
+        
+        if(oneBill > 1 )
+        {
+            cout << oneBill << " $1 bills" << endl;
+        }
+        else
+        {
+            cout << oneBill << " $1 bill" << endl;
+        }
+    }
+    
     return 0;
 }
 
