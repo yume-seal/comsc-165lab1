@@ -174,7 +174,27 @@ int main()
         }
     }
     
+    //create a variable for the amount of 25 cent coins needed for change
+    int twentyFiveCoin = 0;
     
+    //Determine if 25 cent coins should be given as part of the change
+    if(change > 0.24)
+    {
+        while(change > 0.24)
+        {
+            change = change - 0.25;
+            twentyFiveCoin++;
+        }
+        
+        if(twentyFiveCoin > 1)
+        {
+            cout << twentyFiveCoin << " 25-cent coins" << endl;
+        }
+        else
+        {
+            cout << twentyFiveCoin << " 25-cent coin" << endl;
+        }
+    }
     
     return 0;
 }
