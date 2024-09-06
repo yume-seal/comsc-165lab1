@@ -85,6 +85,28 @@ int main()
             cout << twentyBill << " $20 bill" << endl;
         }
     }
+    
+    //create a variable for the amount of 10 dollar bills needed for change
+    int tenBill = 0;
+    
+    //Determine if $10 bills should be given as part of the change
+    if(change > 9.99)
+    {
+        while(change > 9.99)
+        {
+            change = change - 10;
+            tenBill++;
+        }
+        
+        if(tenBill > 1)
+        {
+            cout << tenBill << " $10 bills" << endl;
+        }
+        else
+        {
+            cout << tenBill << " $10 bill" << endl;
+        }
+    }
     return 0;
 }
 
