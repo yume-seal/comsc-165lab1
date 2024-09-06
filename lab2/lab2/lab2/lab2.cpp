@@ -138,7 +138,7 @@ int main()
     {
         while(change > 0.99)
         {
-            change = change -1;
+            change = change - 1;
             oneBill++;
         }
         
@@ -151,6 +151,30 @@ int main()
             cout << oneBill << " $1 bill" << endl;
         }
     }
+    
+    //create a variable for the amount of 50 cent coins needed for change
+    int fiftyCoin = 0;
+    
+    //Determine if 50 cent coins should be given as part of the change
+    if(change > 0.49)
+    {
+        while(change > 0.49)
+        {
+            change = change - 0.50;
+            fiftyCoin++;
+        }
+        
+        if(fiftyCoin > 1)
+        {
+            cout << fiftyCoin << " 50-cent coins" << endl;
+        }
+        else
+        {
+            cout << fiftyCoin << " 50-cent coin" << endl;
+        }
+    }
+    
+    
     
     return 0;
 }
