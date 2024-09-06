@@ -37,7 +37,9 @@ int main()
     
     //Determine the amount of change
     change = amountTendered - purchaseAmount;
-    cout << "The change is " << change <<endl;
+    cout.setf(ios::fixed);
+    cout.precision(2);
+    cout << "The change is $" << change <<endl;
     
     //create a variable for the amount of 50 dollar bills needed for change
     int fiftyBill = 0;
