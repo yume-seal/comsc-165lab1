@@ -240,6 +240,27 @@ int main()
         }
     }
     
+    //create a variable for the amount of 1 cent coins needed for change
+    int oneCoin = 0;
+    
+    //Determine if 1 cent coins should be given as part of the change
+    if(change > 0.009)
+    {
+        while(change > 0.009)
+        {
+            change = change - 0.01;
+            oneCoin++;
+        }
+        
+        if(oneCoin > 1)
+        {
+            cout << oneCoin << " 1-cent coins" << endl;
+        }
+        else
+        {
+            cout << oneCoin << " 1-cent coin" << endl;
+        }
+    }
     return 0;
 }
 
