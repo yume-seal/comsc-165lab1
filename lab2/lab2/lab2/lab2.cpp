@@ -196,6 +196,28 @@ int main()
         }
     }
     
+    //create a variable for the amount of 10 cent coins needed for change
+    int tenCoin = 0;
+    
+    //Determine if 10 cent coins should be given as part of the change
+    if(change > 0.09)
+    {
+        while(change > 0.09)
+        {
+            change = change - 0.10;
+            tenCoin++;
+        }
+        
+        if(tenCoin > 1)
+        {
+            cout << tenCoin << " 10-cent coins" << endl;
+        }
+        else
+        {
+            cout << tenCoin << " 10-cent coin" << endl;
+        }
+    }
+    
     return 0;
 }
 
