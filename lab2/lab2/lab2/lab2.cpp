@@ -218,6 +218,28 @@ int main()
         }
     }
     
+    //create a variable for the amount of 5 cent coins needed for change
+    int fiveCoin =0;
+    
+    //Determine is 5 cent coins should be given as part of the change
+    if(change > 0.04)
+    {
+        while(change > 0.04)
+        {
+            change = change - 0.05;
+            fiveCoin++;
+        }
+        
+        if(fiveCoin > 1)
+        {
+            cout << fiveCoin << " 5-cent coins" << endl;
+        }
+        else
+        {
+            cout << fiveCoin << " 5-cent coin" << endl;
+        }
+    }
+    
     return 0;
 }
 
