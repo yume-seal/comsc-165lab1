@@ -63,6 +63,28 @@ int main()
             cout << fiftyBill << "$50 bill" << endl;
         }
     }
+    
+    //create a variable for the amount of 20 dollar bills needed for change
+    int twentyBill =0;
+    
+    //Determine if $20 bills should be given as part of the change
+    if(change > 19.99)
+    {
+        while(change > 19.99)
+        {
+            change = change - 20;
+            twentyBill++;
+        }
+        
+        if(twentyBill > 1)
+        {
+            cout << twentyBill << " $20 bills" << endl;
+        }
+        else
+        {
+            cout << twentyBill << " $20 bill" << endl;
+        }
+    }
     return 0;
 }
 
