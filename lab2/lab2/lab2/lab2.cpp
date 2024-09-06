@@ -25,8 +25,6 @@ int main()
         cout << "Enter the amount of the purchase and the amount tendered (separated by a space): " << endl;
         cin >> purchaseAmount;
         cin >> amountTendered;
-        cout << "The purchase amount is " << purchaseAmount << endl;
-        cout << "The amount tendered is " << amountTendered << endl;
         if(cin.fail())
         {
             cin.clear();
@@ -261,6 +259,7 @@ int main()
             cout << oneCoin << " 1-cent coin" << endl;
         }
     }
+    
     return 0;
 }
 
