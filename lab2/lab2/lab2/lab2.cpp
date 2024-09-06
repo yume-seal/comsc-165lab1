@@ -70,7 +70,7 @@ int main()
         }
         else
         {
-            cout << fiftyBill << "$50 bill" << endl;
+            cout << fiftyBill << " $50 bill" << endl;
         }
     }
     
