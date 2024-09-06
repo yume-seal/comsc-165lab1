@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+#Annoying Xcode Project Files
+.xcuserstate
+*.xcworkspace
