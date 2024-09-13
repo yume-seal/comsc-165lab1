@@ -12,9 +12,26 @@ using std::cout;
 using std::endl;
 using std::ios;
 
+#include <ctime>
+
+#include <string>
+using std::string;
+
 int main(int argc, const char * argv[]) {
     
     // Print Welcome message
     cout << "Welcome to My Change Program" << endl;
+    
+    //declaring variable to hold the current time
+    time_t seconds;
+    
+    //Pass seconds by reference to time function to get current time
+    time(&seconds);
+    
+    //Convert the time to a string
+    string currentTimeString = asctime(localtime(&seconds));
+    
+    //Print the current time
+    cout << "\nThe time is " << currentTimeString << endl;
     return 0;
 }
