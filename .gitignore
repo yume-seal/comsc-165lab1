@@ -34,3 +34,4 @@
 #Annoying Xcode Project Files
 .xcuserstate
 *.xcworkspace
+*.xcodeproj
