@@ -17,6 +17,21 @@ using std::ios;
 #include <string>
 using std::string;
 
+
+int countFiftyBills(float& change)
+{
+    int numOfFiftyBills = 0;
+    
+    if(change > 49.99)
+    {
+        change = change - 50;
+        numOfFiftyBills++;
+        countFiftyBills(change);
+    }
+    
+    return numOfFiftyBills;
+}
+
 int main()
 {
     
@@ -55,20 +70,8 @@ int main()
             cin.ignore(INT_MAX, '\n');
         }
     } while(purchaseAmount < 0 || amountTendered < 0); /* Keep executing this loop until the user enters a valid amount for the two variables*/
+    
+    cout << countFiftyBills(amountTendered) << endl;
         
     return 0;
-}
-
-int countFiftyBills(float& change)
-{
-    int numOfFiftyBills = 0;
-    
-    if(change < 49.99)
-    {
-        change = change - 50;
-        numOfFiftyBills++;
-        countFiftyBills(change);
-    }
-    
-    return numOfFiftyBills;
 }
