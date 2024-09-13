@@ -17,7 +17,8 @@ using std::ios;
 #include <string>
 using std::string;
 
-int main(int argc, const char * argv[]) {
+int main()
+{
     
     // Print Welcome message
     cout << "Welcome to My Change Program" << endl;
@@ -34,4 +35,18 @@ int main(int argc, const char * argv[]) {
     //Print the current time
     cout << "\nThe time is " << currentTimeString << endl;
     return 0;
+}
+
+int countFiftyBills(double& change)
+{
+    int numOfFiftyBills = 0;
+    
+    if(change < 49.99)
+    {
+        change = change - 50;
+        numOfFiftyBills++;
+        countFiftyBills(change);
+    }
+    
+    return numOfFiftyBills;
 }
