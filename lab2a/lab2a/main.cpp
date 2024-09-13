@@ -34,6 +34,13 @@ int main()
     
     //Print the current time
     cout << "\nThe time is " << currentTimeString << endl;
+    
+    //Create the float variable to store the amount of the purchase
+    float purchaseAmount = -1;
+    
+    //Create the float variable to store the amount tendered
+    float amountTendered = -1;
+    
     return 0;
 }
 
