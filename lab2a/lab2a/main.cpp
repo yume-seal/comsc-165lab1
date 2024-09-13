@@ -41,10 +41,25 @@ int main()
     //Create the float variable to store the amount tendered
     float amountTendered = -1;
     
+    /* Ask the user for the purchase amount and the amount tendered. If the user enters invalid input, keep asking them the question until they enter valid input*/
+    do
+    {
+        cout << "Enter the amount of the purchase and the amount tendered (separated by a space): " << endl;  //Ask the user for input
+        cin >> purchaseAmount; //get user input and put it in purchaseAmount
+        cin >> amountTendered; //get user input and put it in amountTendered
+            
+        // Check the user's input to see if it is valid or not
+        if(cin.fail())
+        {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+        }
+    } while(purchaseAmount < 0 || amountTendered < 0); /* Keep executing this loop until the user enters a valid amount for the two variables*/
+        
     return 0;
 }
 
-int countFiftyBills(double& change)
+int countFiftyBills(float& change)
 {
     int numOfFiftyBills = 0;
     
