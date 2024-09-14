@@ -20,8 +20,6 @@ using std::string;
 
 int countFiftyBills(float& change)
 {
-    int numOfFiftyBills = 0;
-    
     if(change < 49.99)
     {
         return 0;
@@ -29,23 +27,21 @@ int countFiftyBills(float& change)
     else
     {
         change = change - 50;
-        numOfFiftyBills++;
         return 1 + countFiftyBills(change);
     }
 }
 
 int countTwentyBills(float& change)
 {
-    int numOfTwentyBills = 0;
-    
     if(change > 19.99)
     {
-        change = change - 20;
-        numOfTwentyBills++;
-        countTwentyBills(change);
+        return 0;
     }
-    
-    return numOfTwentyBills;
+    else
+    {
+        change = change - 20;
+        return 1 + countTwentyBills(change);
+    }
 }
 
 int main()
@@ -90,6 +86,9 @@ int main()
     //create a variable to represent the amount of change
     float change;
     change = amountTendered - purchaseAmount;
+    
+    countFiftyBills(change);
+    countTwentyBills(change);
         
     return 0;
 }
