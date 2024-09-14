@@ -46,6 +46,9 @@ float countChange(float& change, float denomination)
     bool isCoin = false;
     bool isDollar = false;
     int billsAndCoins = 0;
+    cout.setf(ios::fixed);
+    cout.precision(0);
+    
     if(denomination > 0.99)
     {
         isDollar = true;
@@ -151,6 +154,9 @@ int main()
     
     cout << "The change is $" << change << endl;
     
+    countChange(change, 49.99);
+    countChange(change, 19.99);
+    countChange(change, 9.99);
     countChange(change, 4.99);
     countChange(change, 0.99);
     countChange(change, 0.49);
