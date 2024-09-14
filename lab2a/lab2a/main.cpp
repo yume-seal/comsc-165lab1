@@ -33,7 +33,7 @@ int countFiftyBills(float& change)
 
 int countTwentyBills(float& change)
 {
-    if(change > 19.99)
+    if(change < 19.99)
     {
         return 0;
     }
@@ -41,6 +41,19 @@ int countTwentyBills(float& change)
     {
         change = change - 20;
         return 1 + countTwentyBills(change);
+    }
+}
+
+int countTenBills(float& change)
+{
+    if(change < 9.99)
+    {
+        return 0;
+    }
+    else
+    {
+        change = change - 10;
+        return 1 + countTenBills(change);
     }
 }
 
@@ -87,8 +100,9 @@ int main()
     float change;
     change = amountTendered - purchaseAmount;
     
-    countFiftyBills(change);
-    countTwentyBills(change);
+    cout << countFiftyBills(change) << endl;
+    cout << countTwentyBills(change) << endl;
+    cout << countTenBills(change) << endl;
         
     return 0;
 }
