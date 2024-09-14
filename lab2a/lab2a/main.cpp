@@ -57,6 +57,19 @@ int countTenBills(float& change)
     }
 }
 
+int countFiveBills(float& change)
+{
+    if(change < 4.99)
+    {
+        return 0;
+    }
+    else
+    {
+        change = change - 5;
+        return 1 + countFiveBills(change);
+    }
+}
+
 int main()
 {
     
@@ -103,6 +116,7 @@ int main()
     cout << countFiftyBills(change) << endl;
     cout << countTwentyBills(change) << endl;
     cout << countTenBills(change) << endl;
+    cout << countFiveBills(change) << endl;
         
     return 0;
 }
