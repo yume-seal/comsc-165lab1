@@ -17,6 +17,9 @@ using std::ios;
 #include <string>
 using std::string;
 
+/* This function counts how many pennies are needed for change. It is only run when the
+ countChange function is passed a denomination of 0.009 */
+
 float countOneCoins(float& change)
 {
     int oneCoin = 0;
@@ -41,36 +44,51 @@ float countOneCoins(float& change)
     return change;
 }
 
+/* This function counts how much of each bill or coin is needed for the change. It
+ takes the parameters change and denomination, where change is the change and denomination is how much to subtract from the change. First, it checks to see whether the denomination is a bill or a coin. If it is a bill, then the amount of bills needed will be outputted with a dollar sign in front of the value of the bill, and if it is a coin, then the amount of coins needed will be outputted with  "-cent coins" after the value of the coin. */
 float countChange(float& change, float denomination)
 {
+    //Declare boolean variables to find whether the denomination is bill or coin
     bool isCoin = false;
     bool isDollar = false;
+    
+    //Counter variable to output the number of bills or coins needed
     int billsAndCoins = 0;
+    
+    //Format the output so the value of the bills and coins is shown to the nearest whole
+    //number
     cout.setf(ios::fixed);
     cout.precision(0);
-    
+ 
+    //Checking to see if the denomination is a bill
     if(denomination > 0.99)
     {
         isDollar = true;
     }
-    else if(denomination > 0.009)
+    else if(denomination > 0.009) /*Checking to see if the denomination is a coin that's not a penny. We aren't counting pennies as coins because the denomination for pennies has 3 decimal place value whilst all the other coins have only 2. */
     {
         isCoin = true;
     }
-    else
+    else //If the denomination is a penny, call the countOneCoins function to see how many pennies we need.
     {
         countOneCoins(change);
     }
     
     if(isDollar == true)
     {
+        //loop to keep subtracting the bills from the change
         while(change > denomination)
         {
             change = change - (denomination + 0.01);
+            
+            //increment billsAndCoins to keep track of how many bills we need.
             billsAndCoins++;
         }
+        
+        //Only show the bills if they are needed.
         if(billsAndCoins != 0)
         {
+            //Check if bills should be plural
             if(billsAndCoins > 1)
             {
                 cout << billsAndCoins << " $" << denomination + 0.01 << " bills" << endl;
@@ -84,16 +102,22 @@ float countChange(float& change, float denomination)
         
         if(isCoin == true)
         {
+            //loop to keep subtracting the coin from the change
             while(change > denomination)
             {
                 change = change - (denomination + 0.01);
+                
+                //increment this variable to keep track of how many coins we need.
                 billsAndCoins++;
             }
             
+            //Only output the coins if they are needed.
             if(billsAndCoins != 0)
             {
+                //Check if coins should be plural
                 if(billsAndCoins > 1)
                 {
+                    //we need to add 0.01 to the denomination and multiply by 100 because we want to show it as a whole number.
                     cout << billsAndCoins << " " << (denomination + 0.01) * 100 << "-cent coins" << endl;
                 }
                 else
@@ -151,9 +175,9 @@ int main()
          is shown correct to 2 decimal places */
     cout.setf(ios::fixed);
     cout.precision(2);
-    
     cout << "The change is $" << change << endl;
     
+    //Call the countChange function for different values of dollar bills and coins in descending order.
     countChange(change, 49.99);
     countChange(change, 19.99);
     countChange(change, 9.99);
