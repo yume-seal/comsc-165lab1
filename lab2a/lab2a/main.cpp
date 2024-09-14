@@ -22,14 +22,16 @@ int countFiftyBills(float& change)
 {
     int numOfFiftyBills = 0;
     
-    if(change > 49.99)
+    if(change < 49.99)
+    {
+        return 0;
+    }
+    else
     {
         change = change - 50;
         numOfFiftyBills++;
-        countFiftyBills(change);
+        return 1 + countFiftyBills(change);
     }
-    
-    return numOfFiftyBills;
 }
 
 int countTwentyBills(float& change)
@@ -85,12 +87,9 @@ int main()
         }
     } while(purchaseAmount < 0 || amountTendered < 0); /* Keep executing this loop until the user enters a valid amount for the two variables*/
     
-    int fiftyBills = 0;
-    fiftyBills = countFiftyBills(amountTendered);
-    int twentyBills = 0;
-    twentyBills = countTwentyBills(amountTendered);
-    
-    cout << fiftyBills << "\n" << twentyBills << endl;
+    //create a variable to represent the amount of change
+    float change;
+    change = amountTendered - purchaseAmount;
         
     return 0;
 }
