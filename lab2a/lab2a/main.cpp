@@ -17,221 +17,6 @@ using std::ios;
 #include <string>
 using std::string;
 
-
-float countFiftyBills(float& change)
-{
-    int fiftyBills = 0;
-    
-    while(change > 49.99)
-    {
-        change = change - 50.0;
-        fiftyBills++;
-    }
-    if(fiftyBills != 0)
-    {
-        if(fiftyBills > 1)
-        {
-            cout << fiftyBills << " $50 bills" << endl;
-        }
-        else
-        {
-            cout << fiftyBills << " $50 bill" << endl;
-        }
-    }
-    return change;
-}
-
-float countTwentyBills(float& change)
-{
-    int twentyBills = 0;
-    
-    while(change > 19.99)
-    {
-        change = change - 20.0;
-        twentyBills++;
-    }
-    
-    if(twentyBills != 0)
-    {
-        if(twentyBills > 1)
-        {
-            cout << twentyBills << " $20 bills" << endl;
-        }
-        else
-        {
-            cout << twentyBills << " $20 bill" << endl;
-        }
-    }
-    return change;
-}
-
-float countTenBills(float& change)
-{
-    int tenBills = 0;
-    
-    while(change > 9.99)
-    {
-        change = change - 10;
-        tenBills++;
-    }
-    
-    if(tenBills != 0)
-    {
-        if(tenBills > 1)
-        {
-            cout << tenBills << " $10 bills" << endl;
-        }
-        else
-        {
-            cout << tenBills << " $10 bill" << endl;
-        }
-    }
-    return change;
-}
-
-float countFiveBills(float& change)
-{
-    int fiveBills = 0;
-    
-    while(change > 4.99)
-    {
-        change = change - 5.0;
-        fiveBills++;
-    }
-    
-    if(fiveBills != 0)
-    {
-        if(fiveBills > 1)
-        {
-            cout << fiveBills << " $5 bills" << endl;
-        }
-        else
-        {
-            cout << fiveBills << " $5 bill" << endl;
-        }
-    }
-    return change;
-}
-
-float countOneBills(float& change)
-{
-    int oneBills = 0;
-    
-    while(change > 0.99)
-    {
-        change = change - 1;
-        oneBills++;
-    }
-    
-    if(oneBills != 0)
-    {
-        if(oneBills > 1)
-        {
-            cout <<  oneBills << " $1 bills" << endl;
-        }
-        else
-        {
-            cout << oneBills << " $1 bill" << endl;
-        }
-    }
-    return change;
-}
-
-float countFiftyCoins(float& change)
-{
-    int fiftyCoin = 0;
-    
-    while(change > 0.49)
-    {
-        change = change - 0.50;
-        fiftyCoin++;
-    }
-
-    if(fiftyCoin != 0)
-    {
-        if(fiftyCoin > 1)
-        {
-            cout << fiftyCoin << " 50-cent coins" << endl;
-        }
-        else
-        {
-            cout << fiftyCoin << " 50-cent coin" << endl;
-        }
-    }
-    return change;
-}
-
-float countTwentyFiveCoins(float& change)
-{
-    int twentyFiveCoin = 0;
-    while(change > 0.24)
-    {
-        change = change - 0.25;
-        twentyFiveCoin++;
-    }
-    
-    if(twentyFiveCoin != 0)
-    {
-        if(twentyFiveCoin > 1)
-        {
-            cout << twentyFiveCoin << " 25-cent coin" << endl;
-        }
-        else
-        {
-            cout << twentyFiveCoin << " 25-cent coin" << endl;
-        }
-    }
-    return change;
-}
-
-float countTenCoins(float& change)
-{
-    int tenCoin = 0;
-    
-    while(change > 0.09)
-    {
-        change = change - 0.10;
-        tenCoin++;
-    }
-    
-    if(tenCoin != 0)
-    {
-        if(tenCoin > 1)
-        {
-            cout << tenCoin << " 10-cent coins" << endl;
-        }
-        else
-        {
-            cout << tenCoin << " 10-cent coin" << endl;
-        }
-    }
-    return change;
-}
-
-float countFiveCoins(float& change)
-{
-    int fiveCoin = 0;
-    
-    while(change > 0.04)
-    {
-        change = change - 0.05;
-        fiveCoin++;
-    }
-    
-    if(fiveCoin != 0)
-    {
-        if(fiveCoin > 1)
-        {
-            cout << fiveCoin << " 5-cent coins" << endl;
-        }
-        else
-        {
-            cout << fiveCoin << " 5-cent coin" << endl;
-        }
-    }
-    return change;
-}
-
 float countOneCoins(float& change)
 {
     int oneCoin = 0;
@@ -258,10 +43,9 @@ float countOneCoins(float& change)
 
 float countChange(float& change, float denomination)
 {
-    int billsAndCoins = 0;
     bool isCoin = false;
     bool isDollar = false;
-    
+    int billsAndCoins = 0;
     if(denomination > 0.99)
     {
         isDollar = true;
@@ -279,10 +63,10 @@ float countChange(float& change, float denomination)
     {
         while(change > denomination)
         {
-            change = change - denomination;
+            change = change - (denomination + 0.01);
             billsAndCoins++;
         }
-        if(billsAndCoins !=0)
+        if(billsAndCoins != 0)
         {
             if(billsAndCoins > 1)
             {
@@ -294,6 +78,27 @@ float countChange(float& change, float denomination)
             }
         }
     }
+        
+        if(isCoin == true)
+        {
+            while(change > denomination)
+            {
+                change = change - (denomination + 0.01);
+                billsAndCoins++;
+            }
+            
+            if(billsAndCoins != 0)
+            {
+                if(billsAndCoins > 1)
+                {
+                    cout << billsAndCoins << " " << (denomination + 0.01) * 100 << "-cent coins" << endl;
+                }
+                else
+                {
+                    cout << billsAndCoins << " " << (denomination + 0.01) * 100 << "-cent coin" << endl;
+                }
+            }
+        }
     return change;
 }
 int main()
@@ -345,17 +150,14 @@ int main()
     cout.precision(2);
     
     cout << "The change is $" << change << endl;
-    //countFiftyBills(change);
-    //countTwentyBills(change);
-    //countTenBills(change);
-    //countFiveBills(change);
-    //countOneBills(change);
-    //countFiftyCoins(change);
-    //countTwentyFiveCoins(change);
-    //countTenCoins(change);
-    //countFiveCoins(change);
-    //countOneCoins(change);
+    
     countChange(change, 4.99);
     countChange(change, 0.99);
+    countChange(change, 0.49);
+    countChange(change, 0.24);
+    countChange(change, 0.09);
+    countChange(change, 0.04);
+    countChange(change, 0.009);
+    
     return 0;
 }
