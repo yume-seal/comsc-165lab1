@@ -15,6 +15,10 @@ using std::ios;
 using std::string;
 using std::getline;
 
+#include <fstream>
+using std::ifstream;
+using std::ofstream;
+
 #include <iomanip>
 
 struct Student
@@ -77,12 +81,33 @@ void outputStudent(Student student)
     cout << std::setw(0) << std::setfill('-') << std::setw(64) << std::left << "" << std::setfill(' ') << endl;
 }
 
+bool saveStudentData(Student& student)
+{
+    ofstream outFile;
+    outFile.open("students.txt");
+    if(!outFile.is_open())
+    {
+        cout << "File cannot be opened" << endl;
+        return false;
+    }
+    outFile << student.name << endl;
+    outFile << student.city << endl;
+    outFile << student.age << endl;
+    outFile << student.classRank << endl;
+    outFile << student.gpa << endl;
+    outFile.close();
+    
+    return true;
+}
+
 int main()
 {
     Student student1 = inputStudent();
+    cout << "\n";
     Student student2 = inputStudent();
-    //Student student3 = inputStudent();
-    
+    cout << "\n";
+    Student student3 = inputStudent();
+    cout << "\n";
     cout << std::setw(20) << std::left << "Name";
     cout << std::setw(15) << std::left << "City";
     cout << std::setw(7) << "Age";
@@ -92,5 +117,11 @@ int main()
     
     outputStudent(student1);
     outputStudent(student2);
+    outputStudent(student3);
+    
+    saveStudentData(student1);
+    saveStudentData(student2);
+    saveStudentData(student3);
+    
     return 0;
 }
