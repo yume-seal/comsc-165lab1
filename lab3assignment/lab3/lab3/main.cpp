@@ -13,6 +13,7 @@ using std::ios;
 
 #include <string>
 using std::string;
+using std::getline;
 
 #include <iomanip>
 
@@ -59,18 +60,37 @@ Student inputStudent()
     cout << "\nEnter the Student's gpa: ";
     
     //Store the gpa in the student object
-    cin >> buf; someStudent.gpa = atoi(buf.c_str());
+    cin >> buf; someStudent.gpa = atof(buf.c_str());
+    cin.ignore(INT_MAX, '\n');
     
     return someStudent;
 }
 
-void outputStudent()
+
+void outputStudent(Student student)
 {
-    
+    cout << "" << std::setw(20) << std::left << student.name;
+    cout << "" << std::setw(15) << std::setfill(' ') << student.city;
+    cout << "" << std::setw(7) << std::setfill(' ') << student.age;
+    cout << "" << std::setw(15) << student.classRank;
+    cout << "" << std::setw(7) << student.gpa << "\n";
+    cout << std::setw(0) << std::setfill('-') << std::setw(64) << std::left << "" << std::setfill(' ') << endl;
 }
 
 int main()
 {
-    inputStudent();
+    Student student1 = inputStudent();
+    Student student2 = inputStudent();
+    //Student student3 = inputStudent();
+    
+    cout << std::setw(20) << std::left << "Name";
+    cout << std::setw(15) << std::left << "City";
+    cout << std::setw(7) << "Age";
+    cout << std::setw(15) << "Class Rank";
+    cout << std::setw(7) << "GPA" << "\n";
+    cout << std::setw(0) << std::setfill('-') << std::setw(64) << "" << std::setfill(' ') << endl;
+    
+    outputStudent(student1);
+    outputStudent(student2);
     return 0;
 }
