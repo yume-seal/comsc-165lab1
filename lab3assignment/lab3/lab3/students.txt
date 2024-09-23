@@ -1,1 +1,15 @@
-
+Name: Pix Seal
+City: Coral City
+Age: 5
+Class Rank: 1
+GPA: 4
+Name: Ryuu Kazan
+City: Cloudy City
+Age: 12
+Class Rank: 5
+GPA: 3.9
+Name: White S
+City: Foggy Hills
+Age: 15
+Class Rank: 2
+GPA: 4
