@@ -48,7 +48,7 @@ Student inputStudent()
     
     //Store the student's name in the student object
     getline(cin, someStudent.name);
-    
+    cout << someStudent.name;
     //Ask the user for the Student's city
     cout << "\nEnter the name of the Student's city: ";
     
@@ -127,11 +127,11 @@ bool saveStudentData(Student student)
     }
     
     //output the information to the file
-    outFile << "Name: " << student.name << endl;
-    outFile << "City: " << student.city << endl;
-    outFile << "Age: " << student.age << endl;
-    outFile << "Class Rank: " << student.classRank << endl;
-    outFile << "GPA: " << student.gpa << endl;
+    outFile << student.name << endl;
+    outFile << student.city << endl;
+    outFile << student.age << endl;
+    outFile << student.classRank << endl;
+    outFile << student.gpa << endl;
     
     outFile.close(); //close the file
     
