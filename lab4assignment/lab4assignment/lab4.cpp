@@ -15,10 +15,24 @@ using std::ios;
 
 #include <string>
 using std::string;
+using std::getline;
 
 #include <fstream> //so we can do serialisation
 using std::ofstream;
 using std::ifstream;
+
+#include <cstdlib> //for atoi and atof
+
+#include <algorithm>
+using std::sort;
+
+//create the Course struct
+struct Course
+{
+    string courseName;
+    int units;
+    char grade;
+};
 
 int main()
 {
