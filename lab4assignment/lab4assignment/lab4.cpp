@@ -36,5 +36,8 @@ struct Course
 
 int main()
 {
+    const int CAPACITY = 100; //max amount of courses in the array
+    Course courses[CAPACITY];
+    int size = 0; //array size
     return 0;
 }
