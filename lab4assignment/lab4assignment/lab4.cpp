@@ -35,15 +35,34 @@ struct Course
     char grade;
 };
 
+void serialiseCoursesDown(Course courses[], int& size)
+{
+    ofstream fout;
+    fout.open("courses.txt", ios::app);
+    
+    for(int i = 0; i < size; i++)
+    {
+        fout << courses[i].courseName << endl;
+        fout << courses[i].units << endl;
+        fout << courses[i].year << endl;
+        fout << courses[i].grade << endl;
+        fout << "EOF";
+    }
+}
 void serialiseCoursesUp(Course courses[], int& size)
 {
     ifstream fin;
     fin.open("courses.txt");
     
+    if(!fin)
+    {
+        cout << "This file does not exist!" << endl;
+    }
+    
     while(fin.good())
     {
         string buffer;
-        getline(cin, buffer);
+        getline(fin, buffer);
         if(buffer == "EOF")
         {
             break;
@@ -62,16 +81,22 @@ void serialiseCoursesUp(Course courses[], int& size)
     
     fin.close();
 }
+
 Course cinOneCourse(int sqeuenceNumber)
 {
     //declare a course object
     Course newCourse;
     cout << "Enter the name of the course (Press \"Q\" to quit): " << endl;
-    getline(cin, newCourse.courseName);
+    string courseName;
+    getline(cin, courseName);
     
-    if(newCourse.courseName == "q" || newCourse.courseName == "Q")
+    if(courseName == "q" || courseName == "Q")
     {
         return newCourse;
+    }
+    else
+    {
+        newCourse.courseName = courseName;
     }
     
     cout << "Enter the amount of units for the course: " << endl;
@@ -95,8 +120,11 @@ int main()
     const int CAPACITY = 100; //max amount of courses in the array
     Course courses[CAPACITY];
     int size = 0; //array size
+    
+    serialiseCoursesUp(courses, size);
     courses[size] = cinOneCourse(0);
     size++;
     
+    serialiseCoursesDown(courses, size);
     return 0;
 }
