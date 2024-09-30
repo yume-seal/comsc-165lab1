@@ -35,6 +35,33 @@ struct Course
     char grade;
 };
 
+void serialiseCoursesUp(Course courses[], int& size)
+{
+    ifstream fin;
+    fin.open("courses.txt");
+    
+    while(fin.good())
+    {
+        string buffer;
+        getline(cin, buffer);
+        if(buffer == "EOF")
+        {
+            break;
+        }
+        else
+        {
+            courses[size].courseName = buffer;
+            fin >> courses[size].units;
+            fin.ignore(1000, 10);
+            fin >> courses[size].year;
+            fin.ignore(1000, 10);
+            fin >> courses[size].grade;
+            fin.ignore(1000, 10);
+        }
+    }
+    
+    fin.close();
+}
 Course cinOneCourse(int sqeuenceNumber)
 {
     //declare a course object
