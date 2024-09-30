@@ -31,13 +31,45 @@ struct Course
 {
     string courseName;
     int units;
+    int year;
     char grade;
 };
+
+Course cinOneCourse(int sqeuenceNumber)
+{
+    //declare a course object
+    Course newCourse;
+    cout << "Enter the name of the course (Press \"Q\" to quit): " << endl;
+    getline(cin, newCourse.courseName);
+    
+    if(newCourse.courseName == "q" || newCourse.courseName == "Q")
+    {
+        return newCourse;
+    }
+    
+    cout << "Enter the amount of units for the course: " << endl;
+    string units;
+    getline(cin, units);
+    newCourse.units = atoi(units.c_str());
+    
+    cout << "Enter the year in which the course is taken: " << endl;
+    string year;
+    getline(cin, year);
+    newCourse.year = atoi(year.c_str());
+    
+    cout << "Enter the grade received for this course (if the course is in progress or planned, enter '?'): " << endl;
+    cin >> newCourse.grade;
+    
+    return newCourse;
+}
 
 int main()
 {
     const int CAPACITY = 100; //max amount of courses in the array
     Course courses[CAPACITY];
     int size = 0; //array size
+    courses[size] = cinOneCourse(0);
+    size++;
+    
     return 0;
 }
