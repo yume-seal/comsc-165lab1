@@ -12,6 +12,10 @@ using std::endl;
 using std::ios;
 
 #include <iomanip> //so we can use setw and stuff
+using std::setw;
+using std::setfill;
+using std::left;
+using std::right;
 
 #include <string>
 using std::string;
@@ -82,11 +86,11 @@ void serialiseCoursesUp(Course courses[], int& size)
     fin.close();
 }
 
-Course cinOneCourse(int sqeuenceNumber)
+Course cinOneCourse(int sequenceNumber)
 {
     //declare a course object
     Course newCourse;
-    cout << "Enter the name of the course (Press \"Q\" to quit): " << endl;
+    cout << "Enter the name of course #" << sequenceNumber << "(Press \"Q\" to quit): " << endl;
     string courseName;
     getline(cin, courseName);
     
@@ -115,12 +119,20 @@ Course cinOneCourse(int sqeuenceNumber)
     return newCourse;
 }
 
+void coutAllCourses(Course[], int size)
+{
+    cout << left << setw(20) << "Course";
+    cout << left << setw(6) << "Year";
+    cout << setw(8) << "Units";
+    cout << setw(7) << "Grade" << endl;
+    cout << setw(41) << setfill('-') << "" << endl;
+}
 int main()
 {
     const int CAPACITY = 100; //max amount of courses in the array
     Course courses[CAPACITY];
     int size = 0; //array size
-    
+    coutAllCourses(courses, size);
     serialiseCoursesUp(courses, size);
     courses[size] = cinOneCourse(0);
     size++;
