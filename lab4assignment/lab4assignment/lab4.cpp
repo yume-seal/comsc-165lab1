@@ -50,7 +50,6 @@ void serialiseCoursesDown(Course courses[], int& size)
         fout << courses[i].units << endl;
         fout << courses[i].year << endl;
         fout << courses[i].grade << endl;
-        fout << "EOF";
     }
 }
 void serialiseCoursesUp(Course courses[], int& size)
@@ -67,21 +66,14 @@ void serialiseCoursesUp(Course courses[], int& size)
     {
         string buffer;
         getline(fin, buffer);
-        if(buffer == "EOF")
-        {
-            break;
-        }
-        else
-        {
-            courses[size].courseName = buffer;
-            fin >> courses[size].units;
-            fin.ignore(1000, 10);
-            fin >> courses[size].year;
-            fin.ignore(1000, 10);
-            fin >> courses[size].grade;
-            fin.ignore(1000, 10);
-            size++;
-        }
+        courses[size].courseName = buffer;
+        fin >> courses[size].units;
+        fin.ignore(1000, 10);
+        fin >> courses[size].year;
+        fin.ignore(1000, 10);
+        fin >> courses[size].grade;
+        fin.ignore(1000, 10);
+        size++;
     }
     
     fin.close();
@@ -100,7 +92,7 @@ Course cinOneCourse(int sequenceNumber)
         
         return newCourse;
     }
-    
+
     newCourse.courseName = courseName;
     cout << "Enter the amount of units for the course: " << endl;
     string units;
@@ -129,11 +121,16 @@ void coutAllCourses(Course courses[], int& size)
     
     if(!courses[size].courseName.empty())
     {
-        cout << left << setw(20) << courses[size].courseName;
-        cout << left << setw(6) << courses[size].year;
-        cout << setw(8) << courses[size].units;
-        cout << setw(7) << courses[size].grade << endl;
-        cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
+        int countCourses = 0;
+        while(countCourses < size + 1)
+        {
+            cout << left << setw(20) << courses[countCourses].courseName;
+            cout << left << setw(6) << courses[countCourses].year;
+            cout << setw(8) << courses[countCourses].units;
+            cout << setw(7) << courses[countCourses].grade << endl;
+            cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
+            countCourses++;
+        }
     }
 }
 int main()
@@ -141,7 +138,7 @@ int main()
     const int CAPACITY = 100; //max amount of courses in the array
     Course courses[CAPACITY];
     int size = 0; //array size
-    
+    serialiseCoursesUp(courses, size);
     coutAllCourses(courses, size);
     for(int counter = 0; counter < CAPACITY; counter++)
     {
@@ -160,5 +157,6 @@ int main()
         
     }
     
+    serialiseCoursesDown(courses, size);
     return 0;
 }
