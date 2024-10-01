@@ -42,7 +42,7 @@ struct Course
 void serialiseCoursesDown(Course courses[], int& size)
 {
     ofstream fout;
-    fout.open("courses.txt", ios::app);
+    fout.open("courses.txt");
     
     for(int i = 0; i < size; i++)
     {
@@ -80,6 +80,7 @@ void serialiseCoursesUp(Course courses[], int& size)
             fin.ignore(1000, 10);
             fin >> courses[size].grade;
             fin.ignore(1000, 10);
+            size++;
         }
     }
     
@@ -96,13 +97,11 @@ Course cinOneCourse(int sequenceNumber)
     
     if(courseName == "q" || courseName == "Q")
     {
+        
         return newCourse;
     }
-    else
-    {
-        newCourse.courseName = courseName;
-    }
     
+    newCourse.courseName = courseName;
     cout << "Enter the amount of units for the course: " << endl;
     string units;
     getline(cin, units);
@@ -115,28 +114,51 @@ Course cinOneCourse(int sequenceNumber)
     
     cout << "Enter the grade received for this course (if the course is in progress or planned, enter '?'): " << endl;
     cin >> newCourse.grade;
+    cin.ignore(1000, 10);
     
     return newCourse;
 }
 
-void coutAllCourses(Course[], int size)
+void coutAllCourses(Course courses[], int& size)
 {
     cout << left << setw(20) << "Course";
     cout << left << setw(6) << "Year";
     cout << setw(8) << "Units";
     cout << setw(7) << "Grade" << endl;
-    cout << setw(41) << setfill('-') << "" << endl;
+    cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
+    
+    if(!courses[size].courseName.empty())
+    {
+        cout << left << setw(20) << courses[size].courseName;
+        cout << left << setw(6) << courses[size].year;
+        cout << setw(8) << courses[size].units;
+        cout << setw(7) << courses[size].grade << endl;
+        cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
+    }
 }
 int main()
 {
     const int CAPACITY = 100; //max amount of courses in the array
     Course courses[CAPACITY];
     int size = 0; //array size
-    coutAllCourses(courses, size);
-    serialiseCoursesUp(courses, size);
-    courses[size] = cinOneCourse(0);
-    size++;
     
-    serialiseCoursesDown(courses, size);
+    coutAllCourses(courses, size);
+    for(int counter = 0; counter < CAPACITY; counter++)
+    {
+        Course newCourse = cinOneCourse(size + 1);
+        
+        if(newCourse.courseName.empty())
+        {
+            break;
+        }
+        else
+        {
+            courses[size] = newCourse;
+            coutAllCourses(courses, size);
+            size++;
+        }
+        
+    }
+    
     return 0;
 }
