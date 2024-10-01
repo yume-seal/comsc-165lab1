@@ -46,10 +46,13 @@ void serialiseCoursesDown(Course courses[], int& size)
     
     for(int i = 0; i < size; i++)
     {
-        fout << courses[i].courseName << endl;
-        fout << courses[i].units << endl;
-        fout << courses[i].year << endl;
-        fout << courses[i].grade << endl;
+        if(!courses[i].courseName.empty())
+        {
+            fout << courses[i].courseName << endl;
+            fout << courses[i].units << endl;
+            fout << courses[i].year << endl;
+            fout << courses[i].grade << endl;
+        }
     }
 }
 void serialiseCoursesUp(Course courses[], int& size)
@@ -66,6 +69,8 @@ void serialiseCoursesUp(Course courses[], int& size)
     {
         string buffer;
         getline(fin, buffer);
+        
+        size = 0;
         courses[size].courseName = buffer;
         fin >> courses[size].units;
         fin.ignore(1000, 10);
@@ -119,17 +124,15 @@ void coutAllCourses(Course courses[], int& size)
     cout << setw(7) << "Grade" << endl;
     cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
     
-    if(!courses[size].courseName.empty())
+    for(int countCourses = 0; countCourses < size + 1; countCourses++)
     {
-        int countCourses = 0;
-        while(countCourses < size + 1)
+        if(!courses[countCourses].courseName.empty())
         {
             cout << left << setw(20) << courses[countCourses].courseName;
             cout << left << setw(6) << courses[countCourses].year;
             cout << setw(8) << courses[countCourses].units;
             cout << setw(7) << courses[countCourses].grade << endl;
             cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
-            countCourses++;
         }
     }
 }
@@ -158,5 +161,6 @@ int main()
     }
     
     serialiseCoursesDown(courses, size);
+    
     return 0;
 }
