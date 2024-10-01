@@ -44,7 +44,7 @@ void serialiseCoursesDown(Course courses[], int& size)
     ofstream fout;
     fout.open("courses.txt");
     
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i <= size; i++)
     {
         if(!courses[i].courseName.empty())
         {
@@ -57,6 +57,7 @@ void serialiseCoursesDown(Course courses[], int& size)
 }
 void serialiseCoursesUp(Course courses[], int& size)
 {
+    size = 0;
     ifstream fin;
     fin.open("courses.txt");
     
@@ -65,12 +66,14 @@ void serialiseCoursesUp(Course courses[], int& size)
         cout << "This file does not exist!" << endl;
     }
     
-    while(fin.good())
+    while(fin.good() && !fin.eof())
     {
         string buffer;
         getline(fin, buffer);
-        
-        size = 0;
+        if(buffer.empty())
+        {
+            break;
+        }
         courses[size].courseName = buffer;
         fin >> courses[size].units;
         fin.ignore(1000, 10);
@@ -124,14 +127,14 @@ void coutAllCourses(Course courses[], int& size)
     cout << setw(7) << "Grade" << endl;
     cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
     
-    for(int countCourses = 0; countCourses < size + 1; countCourses++)
+    for(int i = 0; i <= size; i++)
     {
-        if(!courses[countCourses].courseName.empty())
+        if(!courses[i].courseName.empty())
         {
-            cout << left << setw(20) << courses[countCourses].courseName;
-            cout << left << setw(6) << courses[countCourses].year;
-            cout << setw(8) << courses[countCourses].units;
-            cout << setw(7) << courses[countCourses].grade << endl;
+            cout << left << setw(20) << courses[i].courseName;
+            cout << left << setw(6) << courses[i].year;
+            cout << setw(8) << courses[i].units;
+            cout << setw(7) << courses[i].grade << endl;
             cout << setw(41) << setfill('-') << "" << setfill(' ') << endl;
         }
     }
