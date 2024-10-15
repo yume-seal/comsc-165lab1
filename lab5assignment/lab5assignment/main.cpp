@@ -22,6 +22,11 @@ struct Expense {
     int amount;
 };
 
+Expense searchString(Expense expenses[], int& size)
+{
+    Expense searchedExpense;
+    return searchedExpense;
+}
 Expense spend()
 {
     Expense newExpense;
