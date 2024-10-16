@@ -22,6 +22,27 @@ struct Expense {
     int amount;
 };
 
+void searchAmount(Expense expenses[], int& size)
+{
+    Expense searchedExpense;
+    
+    float searchAmount = 0;
+    cout << "Please enter the amount: ";
+    cin >> searchAmount;
+    
+    for(int counter = 0; counter <= size; counter++)
+    {
+        if(expenses[counter].amount >= searchAmount)
+        {
+            cout << "AMOUNT: " << expenses[counter].amount << " " << "DESC: " << expenses[counter].description << endl;
+        }
+        else
+        {
+            cout << "\nNo results found with an amount greater than or equal to " << searchAmount;
+        }
+    }
+}
+
 void searchString(Expense expenses[], int& size)
 {
     Expense searchedExpense;
@@ -41,7 +62,7 @@ void searchString(Expense expenses[], int& size)
         }
         else
         {
-            cout << "No results found for: " << stringSearch;
+            cout << "\nNo results found for: " << stringSearch;
         }
     }
 }
@@ -134,6 +155,10 @@ void menu(Expense expenses[], int& size)
         else if(option == 3)
         {
             searchString(expenses, size);
+        }
+        else if(option == 4)
+        {
+            searchAmount(expenses, size);
         }
     }
 }
