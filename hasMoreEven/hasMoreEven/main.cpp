@@ -1,4 +1,4 @@
-//
+// midterm coding question
 //  main.cpp
 //  hasMoreEven
 //
