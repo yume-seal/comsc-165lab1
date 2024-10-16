@@ -22,10 +22,28 @@ struct Expense {
     int amount;
 };
 
-Expense searchString(Expense expenses[], int& size)
+void searchString(Expense expenses[], int& size)
 {
     Expense searchedExpense;
-    return searchedExpense;
+    
+    char stringSearch[100];
+    
+    cout << "Please enter the search string: ";
+    
+    cin >> stringSearch;
+    
+    for(int counter = 0; counter <= size; counter++)
+    {
+        if(strstr(expenses[counter].description.c_str(), stringSearch) != NULL)
+        {
+            searchedExpense = expenses[counter];
+            cout << "AMOUNT: " << searchedExpense.amount << " " << "DESC: " << searchedExpense.description << endl;
+        }
+        else
+        {
+            cout << "No results found for: " << stringSearch;
+        }
+    }
 }
 Expense spend()
 {
@@ -112,6 +130,10 @@ void menu(Expense expenses[], int& size)
             size++;
             Expense newExpense = spend();
             expenses[size] = newExpense;
+        }
+        else if(option == 3)
+        {
+            searchString(expenses, size);
         }
     }
 }
