@@ -1,4 +1,4 @@
-//
+// midterm programming question
 //  main.cpp
 //  removeNegatives
 //
