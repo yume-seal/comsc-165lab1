@@ -22,6 +22,33 @@ struct Expense {
     float amount;
 };
 
+Expense spend()
+{
+    Expense newExpense;
+    cout << "Please enter the description of the expense: ";
+    char desc[100];
+    cin.ignore();
+    cin >> desc;
+    
+    return newExpense;
+}
+void showAll(Expense *expenses, int& size)
+{
+   if(size < 0)
+   {
+       cout << "\nThere is no expense entry available" << endl;
+   }
+   else
+   {
+       cout << "Expenses: " << endl;
+             
+        for(int counter = 0; counter <= size; counter++)
+        {
+            cout << "AMOUNT: (" << expenses[counter].amount << ") " << "DESC: (" << expenses[counter].description << ")" << endl;
+        }
+   }
+}
+
 void menu(Expense *expenses, int& size)
 {
     int option = 0;
@@ -53,7 +80,7 @@ void menu(Expense *expenses, int& size)
             
         if(option == 1) //call the function to show all expenses
         {
-            //showAll(expenses, size);
+            showAll(expenses, size);
         }
         else if(option == 2) //call the function to make a new expense entry
         {
