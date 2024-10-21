@@ -28,7 +28,36 @@ Expense spend()
     cout << "Please enter the description of the expense: ";
     char desc[100];
     cin.ignore();
-    cin >> desc;
+    cin.getline(desc, 100);
+    
+    while(desc[0] == '\0')
+    {
+        cout << "\nThe description cannot be empty. Please try again: ";
+        cin.clear();
+        cin >> desc;
+    }
+    int countChar = 0;
+    while(desc[countChar] != '\0')
+    {
+        newExpense.description[countChar] = desc[countChar];
+        countChar++;
+    }
+    
+    newExpense.description[countChar] = '\0';
+    
+    cout << "Please enter the amount of the expense: ";
+    float amount;
+    cin >> amount;
+    
+    while(amount <= 0)
+    {
+        cout << "\nThe amount cannot be 0 or less. Please try again: ";
+        cin.clear();
+        cin.ignore(INT_MAX, 10);
+        cin >> amount;
+    }
+    
+    newExpense.amount =amount;
     
     return newExpense;
 }
@@ -85,8 +114,8 @@ void menu(Expense *expenses, int& size)
         else if(option == 2) //call the function to make a new expense entry
         {
             size++;
-           // Expense newExpense = spend();
-            //expenses[size] = newExpense;
+            Expense newExpense = spend();
+            expenses[size] = newExpense;
         }
         else if(option == 3) //call the function to search the expenses by string
         {
