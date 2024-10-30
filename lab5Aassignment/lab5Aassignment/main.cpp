@@ -19,6 +19,7 @@ using std::endl;
 using std::string;
 
 #include <cctype>
+#include <string>
 
 struct Expense {
     char description[100];
@@ -46,9 +47,20 @@ void searchString(Expense *expenses, int& size)
         lowerSearch[count] = tolower(lowerSearch[count]);
     }
     
-    for(int counter = 0; counter <= size; counter++)
+    int countSize = 0;
+    for(int counter = 0; expenses[countSize].description[counter] != '\0'; counter++)
     {
-        descriptionCopy[counter] = expenses[counter].description[counter];
+        descriptionCopy[counter] = tolower(expenses[countSize].description[counter]);
+        
+        if(strstr(descriptionCopy, lowerSearch) != NULL)
+        {
+            found = true;
+            searchedExpense = expenses[countSize];
+            cout << "AMOUNT: (" << searchedExpense.amount << ") " << "DESC: (" << searchedExpense.description << ") ";
+            break;
+        }
+        
+        countSize++;
     }
     if(found == false)
     {
