@@ -15,12 +15,46 @@ using std::endl;
 #include <vector>
 
 #include <string>
+#include <cstring>
 using std::string;
+
+#include <cctype>
 
 struct Expense {
     char description[100];
     float amount;
 };
+
+void searchString(Expense *expenses, int& size)
+{
+    Expense searchedExpense;
+    char stringSearch[100];
+    char lowerSearch[100];
+    char descriptionCopy[100];
+    bool found = false;
+    cout << "Please enter the search string: ";
+    cin >> stringSearch;
+    int copy = 0;
+    for(int copy = 0; stringSearch[copy] != '\0'; copy++)
+    {
+        lowerSearch[copy] = stringSearch[copy];
+    }
+    lowerSearch[copy + 1] = '\0';
+    
+    for(int count = 0; lowerSearch[count] != '\0'; count++)
+    {
+        lowerSearch[count] = tolower(lowerSearch[count]);
+    }
+    
+    for(int counter = 0; counter <= size; counter++)
+    {
+        descriptionCopy[counter] = expenses[counter].description[counter];
+    }
+    if(found == false)
+    {
+        cout << "\nNo results found for: " << stringSearch << endl;
+    }
+}
 
 Expense spend()
 {
@@ -119,7 +153,7 @@ void menu(Expense *expenses, int& size)
         }
         else if(option == 3) //call the function to search the expenses by string
         {
-            //searchString(expenses, size);
+            searchString(expenses, size);
         }
         else if(option == 4) //call the function to search the expenses by amount
         {
@@ -130,8 +164,8 @@ void menu(Expense *expenses, int& size)
 
 int main()
 {
-    const int CAPACITY = 2;
-    Expense *expenses = new Expense[CAPACITY];
+    int capacity = 2;
+    Expense *expenses = new Expense[capacity];
     int size = -1;
 
     menu(expenses, size);
