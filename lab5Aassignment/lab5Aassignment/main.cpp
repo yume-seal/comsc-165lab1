@@ -1,9 +1,9 @@
-//
-//  main.cpp
-//  lab5Aassignment
-//
-//  Created by Sufyan Adam on 19/10/24.
-//
+/*
+* Name: Madeeha Adam
+* Assignment Lab 5A Track Expenses Using C Strings and Dynamic Arrays
+* Compiler used: Xcode
+* Description: The program allows the user to enter information about expenses and stores them in an array. It allows the user to also search through the array to find different expenses.
+*/
 
 #include <iostream>
 using std::cout;
@@ -21,46 +21,75 @@ using std::string;
 #include <cctype>
 #include <string>
 
-struct Expense {
+struct Expense { //struct for the expenses in the array
     char description[100];
     float amount;
 };
-
-void searchString(Expense *expenses, int& size)
+/* This function takes a user entered float and searches for expense objects that have an amount >= the float.
+ 
+ Params: Array of expense objects (IN)
+         integer value (IN) used to represent the amount of valid objects in the array
+ Return: NONE*/
+void searchAmount(Expense *expenses, int& size)
 {
-    Expense searchedExpense;
-    char stringSearch[100];
-    char lowerSearch[100];
-    char descriptionCopy[100];
+    float searchAmount = 0; //declare a float to hold user input
+    cout << "Please enter the amount: ";
+    cin >> searchAmount; //put the input in the float
+    bool found = false; //declare a boolean variable to check whether the amount is found
+    
+    for(int counter = 0; counter <= size; counter++) //make a loop to search through the array
+    {
+        if(expenses[counter].amount >= searchAmount)
+        {
+            found = true;
+            //print the expense with the matching amount
+            cout << "AMOUNT: (" << expenses[counter].amount << ")" << "DESC: (" << expenses[counter].description << ")" << endl;
+        }
+    }
+    
+    if(found == false)
+    {
+        //if there's no matching amount, say so
+        cout << "\nNo results found with an amount greater than or equal to " << searchAmount << endl;
+    }
+}
+/* This function takes characters entered by the user and searched for expenses that have those characters in their description.
+ Params: Array of expense objects (IN)
+ Return: NONE */
+void searchString(Expense *expenses)
+{
+    Expense searchedExpense; //make an expense to hold the searched expense
+    char stringSearch[100]; //make a array for the search string
+    char lowerSearch[100]; //make a array to convert search string to lowercase
+    char descriptionCopy[100]; //make a array to convert the expense desc to lower case
     bool found = false;
     cout << "Please enter the search string: ";
     cin >> stringSearch;
     int copy = 0;
-    for(int copy = 0; stringSearch[copy] != '\0'; copy++)
+    for(int copy = 0; stringSearch[copy] != '\0'; copy++) //copy search string to another array
     {
         lowerSearch[copy] = stringSearch[copy];
     }
     lowerSearch[copy + 1] = '\0';
     
-    for(int count = 0; lowerSearch[count] != '\0'; count++)
+    for(int count = 0; lowerSearch[count] != '\0'; count++) //convert the new array to lowercase
     {
         lowerSearch[count] = tolower(lowerSearch[count]);
     }
     
-    int countSize = 0;
+    int countSize = 0; //declare a variable to keep track of the expenses in the array
     for(int counter = 0; expenses[countSize].description[counter] != '\0'; counter++)
     {
         descriptionCopy[counter] = tolower(expenses[countSize].description[counter]);
         
-        if(strstr(descriptionCopy, lowerSearch) != NULL)
+        if(strstr(descriptionCopy, lowerSearch) != NULL) //if the desc and search string are the same, print the expense with the search string.
         {
             found = true;
             searchedExpense = expenses[countSize];
-            cout << "AMOUNT: (" << searchedExpense.amount << ") " << "DESC: (" << searchedExpense.description << ") ";
-            break;
+            cout << "\nAMOUNT: (" << searchedExpense.amount << ") " << "DESC: (" << searchedExpense.description << ") " << endl;
         }
         
-        countSize++;
+        countSize++; //if it wasn't found, check the next expense
     }
     if(found == false)
     {
@@ -68,34 +97,38 @@ void searchString(Expense *expenses, int& size)
     }
 }
 
+/* This function allows the user to create a new expense object
+ Params: NONE
+ Return: Expense object
+ */
 Expense spend()
 {
-    Expense newExpense;
+    Expense newExpense; //make a new expense for user to fill
     cout << "Please enter the description of the expense: ";
-    char desc[100];
+    char desc[100]; //create char array to store user input
     cin.ignore();
     cin.getline(desc, 100);
     
-    while(desc[0] == '\0')
+    while(desc[0] == '\0') //don't allow the user to put an empty desc
     {
         cout << "\nThe description cannot be empty. Please try again: ";
         cin.clear();
         cin >> desc;
     }
-    int countChar = 0;
-    while(desc[countChar] != '\0')
+    int countChar = 0; //create variable to keep track of how many characters user entered
+    while(desc[countChar] != '\0')//transfer user input to expense desc
     {
         newExpense.description[countChar] = desc[countChar];
         countChar++;
     }
     
-    newExpense.description[countChar] = '\0';
+    newExpense.description[countChar] = '\0'; //put the ending character
     
-    cout << "Please enter the amount of the expense: ";
+    cout << "Please enter the amount of the expense: "; //ask for user input
     float amount;
     cin >> amount;
     
-    while(amount <= 0)
+    while(amount <= 0) //make sure the user spent more than 0 dollars
     {
         cout << "\nThe amount cannot be 0 or less. Please try again: ";
         cin.clear();
@@ -103,27 +136,38 @@ Expense spend()
         cin >> amount;
     }
     
-    newExpense.amount =amount;
+    newExpense.amount = amount; //put the user input in the expense amount
     
-    return newExpense;
+    return newExpense; //return the new expense to put in array of expenses
 }
+
+/* This function displays all the expense objects in the array.
+ Params: Array of expenses (IN)
+         integer value to keep track of array size (IN)
+ Return: NONE
+ */
 void showAll(Expense *expenses, int& size)
 {
-   if(size < 0)
+   if(size < 0) //don't display empty array
    {
        cout << "\nThere is no expense entry available" << endl;
    }
    else
    {
-       cout << "Expenses: " << endl;
+       cout << "\nExpenses: " << endl;
              
-        for(int counter = 0; counter <= size; counter++)
+        for(int counter = 0; counter <= size; counter++) //loop through the array to display all the expenses in it
         {
             cout << "AMOUNT: (" << expenses[counter].amount << ") " << "DESC: (" << expenses[counter].description << ")" << endl;
         }
    }
 }
 
+/* This function displays a menu for the user and calls different functions based on the option the user selects
+ Params: Array of expenses (IN)
+         Integer value (IN)
+ Return: NONE
+ */
 void menu(Expense *expenses, int& size)
 {
     int option = 0;
@@ -165,20 +209,20 @@ void menu(Expense *expenses, int& size)
         }
         else if(option == 3) //call the function to search the expenses by string
         {
-            searchString(expenses, size);
+            searchString(expenses);
         }
         else if(option == 4) //call the function to search the expenses by amount
         {
-            //searchAmount(expenses, size);
+            searchAmount(expenses, size);
         }
     }
 }
-
+/* this is the main function */
 int main()
 {
-    int capacity = 2;
-    Expense *expenses = new Expense[capacity];
-    int size = -1;
+    int capacity = 2; //make the amount for the dynamic array
+    Expense *expenses = new Expense[capacity]; //create a dynamic array
+    int size = -1; //variable to keep track of the size of the array
 
-    menu(expenses, size);
+    menu(expenses, size); //call menu function
 }
