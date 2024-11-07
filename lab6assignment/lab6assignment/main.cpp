@@ -6,7 +6,23 @@
 //
 
 #include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
 
+#include <string>
+using std::string;
+#include <cctype>
+#include <cstring>
+#include <iomanip>
+
+struct Movie
+{
+    string title;
+    int year;
+    int rating;
+    Movie* next;
+};
 int main()
 {
     return 0;
