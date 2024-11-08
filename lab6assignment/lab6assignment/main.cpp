@@ -15,7 +15,7 @@ using std::string;
 #include <cctype>
 #include <cstring>
 #include <iomanip>
-
+#include <cstdlib>
 struct Movie
 {
     string title;
@@ -24,7 +24,40 @@ struct Movie
     Movie* next;
 };
 
-void menu()
+void addMovie(Movie* head)
+{
+    string title;
+    cout << "\nEnter the movie's name: ";
+    cin.ignore();
+    getline(cin, title);
+    Movie* temp = new Movie;
+    temp->title = title;
+    int year;
+    cout << "\nEnter the year you saw " << title << " [like 2016] :";
+    cin >> year;
+    while(year < 1888)
+    {
+        cout << "\nInvalid input. Enter the year you saw " << title << " [like 2016]: ";
+        cin.clear();
+        cin.ignore();
+        cin >> year;
+    }
+    temp->year = year;
+    int rating;
+    cout << "\nEnter your rating for " << title << " [1, 2, 3, 4, 5] :";
+    cin >> rating;
+    while(rating < 0 || rating > 5)
+    {
+        cout << "\nInvalid rating. Enter your rating for " << title << " [1, 2, 3, 4, 5] :";
+        cin.clear();
+        cin.ignore();
+        cin >> rating;
+    }
+    temp->rating = rating;
+    temp->next = head;
+    head = temp;
+}
+void menu(Movie* head)
 {
     char choice;
     
@@ -44,7 +77,7 @@ void menu()
         
         if(choice == 'A' || choice == 'a')
         {
-            //call some function to add a movie
+            addMovie(head);
         }
         else if(choice == 'U' || choice == 'u')
         {
@@ -75,6 +108,6 @@ void menu()
 int main()
 {
     Movie* head = nullptr;
-    menu();
+    menu(head);
     return 0;
 }
