@@ -24,7 +24,7 @@ struct Movie
     Movie* next;
 };
 
-void addMovie(Movie* head)
+void addMovie(Movie*& head)
 {
     string title;
     cout << "\nEnter the movie's name: ";
@@ -57,6 +57,62 @@ void addMovie(Movie* head)
     temp->next = head;
     head = temp;
 }
+
+void updateMovie(Movie*& head, string title)
+{
+    Movie* current = head;
+    int choice = -1;
+    cout << title;
+
+    while(current != nullptr)
+    {
+        if(current->title == title)
+        {
+            cout << "\nwe are in the if statement";
+            while(choice < 0 || choice > 3)
+            {
+                cout << "\nWhat do you want to update about " << title << "?";
+                cout << "\n1. Title";
+                cout << "\n2. Year viewed";
+                cout << "\n3. Rating";
+                cout << "\n...your choice: ";
+                cin >> choice;
+            }
+            
+            switch (choice)
+            {
+                case 1: {
+                    string newTitle;
+                    cout << "\nEnter the new title: ";
+                    cin >> newTitle;
+                    current->title = newTitle;
+                    break;
+                }
+                case 2: {
+                    int year;
+                    cout << "\nEnter the new year: ";
+                    cin >> year;
+                    current->year = year;
+                    head = current;
+                    break;
+                }
+                case 3: {
+                    int rating;
+                    cout << "\nEnter the new rating: ";
+                    cin >> rating;
+                    current->rating = rating;
+                    head = current;
+                    break;
+                }
+            }
+            return;
+        }
+        current = current->next;
+    }
+    
+    cout << "\nNo movie with the title " << title << " was found" << endl;
+}
+
 void menu(Movie* head)
 {
     char choice;
@@ -81,7 +137,11 @@ void menu(Movie* head)
         }
         else if(choice == 'U' || choice == 'u')
         {
-            //call some function to update movie
+            string title;
+            cout << "\nEnter the name of the movie you want to update: ";
+            cin.ignore();
+            getline(cin, title);
+            updateMovie(head, title);
         }
         else if(choice == 'E' || choice == 'e')
         {
