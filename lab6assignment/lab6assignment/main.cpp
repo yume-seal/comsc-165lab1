@@ -15,6 +15,8 @@ using std::string;
 #include <cctype>
 #include <cstring>
 #include <iomanip>
+#include <algorithm>
+using std::swap;
 using std::left;
 using std::right;
 #include <cstdlib>
@@ -172,6 +174,25 @@ void listMovies(Movie* head)
         count++;
     }
 }
+
+void arrangeTitle(Movie* head)
+{
+    if(head == nullptr)
+    {
+        return;
+    }
+    for(Movie* current = head; current; current = current->next)
+    {
+        for(Movie* tsugi = current->next; tsugi; tsugi = tsugi->next)
+        {
+            if(tsugi->title < current->title)
+            {
+                swap(current->next, tsugi->next);
+            }
+        }
+    }
+}
+
 void menu(Movie* head, int& sequenceNumber)
 {
     char choice;
@@ -222,6 +243,8 @@ void menu(Movie* head, int& sequenceNumber)
         else if(choice == 'T' || choice == 't')
         {
             //call some function to arrange by title
+            arrangeTitle(head);
+            listMovies(head);
         }
         else if(choice == 'V' || choice == 'v')
         {
