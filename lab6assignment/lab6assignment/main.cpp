@@ -15,6 +15,8 @@ using std::string;
 #include <cctype>
 #include <cstring>
 #include <iomanip>
+using std::left;
+using std::right;
 #include <cstdlib>
 struct Movie
 {
@@ -58,15 +60,16 @@ void addMovie(Movie*& head)
     head = temp;
 }
 
-void updateMovie(Movie*& head, string title)
+void updateMovie(Movie*& head, string title, int sequenceNumber)
 {
     Movie* current = head;
     int choice = -1;
+    int currentSequenceNumber = 1;
     cout << title;
 
     while(current != nullptr)
     {
-        if(current->title == title)
+        if(currentSequenceNumber == sequenceNumber)
         {
             cout << "\nwe are in the if statement";
             while(choice < 0 || choice > 3)
@@ -83,8 +86,9 @@ void updateMovie(Movie*& head, string title)
             {
                 case 1: {
                     string newTitle;
+                    cin.ignore();
                     cout << "\nEnter the new title: ";
-                    cin >> newTitle;
+                    getline(cin, newTitle);
                     current->title = newTitle;
                     break;
                 }
@@ -92,6 +96,13 @@ void updateMovie(Movie*& head, string title)
                     int year;
                     cout << "\nEnter the new year: ";
                     cin >> year;
+                    while(year < 1888)
+                    {
+                        cout << "\nInvalid input. Enter the new year: ";
+                        cin.clear();
+                        cin.ignore();
+                        cin >> year;
+                    }
                     current->year = year;
                     head = current;
                     break;
@@ -100,6 +111,13 @@ void updateMovie(Movie*& head, string title)
                     int rating;
                     cout << "\nEnter the new rating: ";
                     cin >> rating;
+                    while(rating > 5 || rating < 1)
+                    {
+                        cout << "\nInvalid input. Enter the new rating: ";
+                        cin.clear();
+                        cin.ignore();
+                        cin >> rating;
+                    }
                     current->rating = rating;
                     head = current;
                     break;
@@ -108,14 +126,58 @@ void updateMovie(Movie*& head, string title)
             return;
         }
         current = current->next;
+        currentSequenceNumber++;
     }
     
     cout << "\nNo movie with the title " << title << " was found" << endl;
 }
 
-void menu(Movie* head)
+void removeMovie(Movie*& head, string title, int sequenceNumber)
+{
+    Movie* current = head;
+    Movie* previous = nullptr;
+    int currentSequenceNumber = 1;
+    while(current != nullptr)
+    {
+        if(currentSequenceNumber == sequenceNumber)
+        {
+            if(previous == nullptr)
+            {
+                head = current->next;
+            }
+            else
+            {
+                previous->next = current->next;
+            }
+            delete current;
+            return;
+        }
+        previous = current;
+        current = current->next;
+        currentSequenceNumber++;
+    }
+    cout << "\nNo movie with the title " << title << " was found." << endl;
+}
+
+void listMovies(Movie* head)
+{
+    cout << left << std::setw(5) << "#";
+    cout << left << std::setw(40) << "Title" ;
+    cout << left << std::setw(10) << "Viewed";
+    cout << left << std::setw(10) << "Rating" << endl;
+    cout << right << std::setfill('-') << std::setw(4) << " " << std::setw(40) << " " << std::setw(10) << " " << std::setw(10) << "\n";
+    int count = 1;
+    while(head != nullptr)
+    {
+        cout << std::setfill(' ') << left << std::setw(5) << count << left << std::setw(40) << head->title << left << std::setw(10) << head->year << left << std::setw(10) << head->rating << "\n";
+        head = head->next;
+        count++;
+    }
+}
+void menu(Movie* head, int& sequenceNumber)
 {
     char choice;
+    string title;
     
     do
     {
@@ -134,22 +196,25 @@ void menu(Movie* head)
         if(choice == 'A' || choice == 'a')
         {
             addMovie(head);
+            sequenceNumber++;
         }
         else if(choice == 'U' || choice == 'u')
         {
-            string title;
             cout << "\nEnter the name of the movie you want to update: ";
             cin.ignore();
             getline(cin, title);
-            updateMovie(head, title);
+            updateMovie(head, title, sequenceNumber);
         }
         else if(choice == 'E' || choice == 'e')
         {
-            //call dome function to remove a movie
+            cout << "\nEnter the name of the movie you want to remove: ";
+            cin.ignore();
+            getline(cin, title);
+            removeMovie(head, title, sequenceNumber);
         }
         else if(choice == 'L' || choice == 'l')
         {
-            //call some function to list all movies
+            listMovies(head);
         }
         else if(choice == 'T' || choice == 't')
         {
@@ -168,6 +233,7 @@ void menu(Movie* head)
 int main()
 {
     Movie* head = nullptr;
-    menu(head);
+    int sequenceNumber = 0;
+    menu(head, sequenceNumber);
     return 0;
 }
