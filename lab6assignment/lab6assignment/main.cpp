@@ -60,12 +60,11 @@ void addMovie(Movie*& head)
     head = temp;
 }
 
-void updateMovie(Movie*& head, string title, int sequenceNumber)
+void updateMovie(Movie*& head, int sequenceNumber)
 {
     Movie* current = head;
     int choice = -1;
     int currentSequenceNumber = 1;
-    cout << title;
 
     while(current != nullptr)
     {
@@ -74,7 +73,7 @@ void updateMovie(Movie*& head, string title, int sequenceNumber)
             cout << "\nwe are in the if statement";
             while(choice < 0 || choice > 3)
             {
-                cout << "\nWhat do you want to update about " << title << "?";
+                cout << "\nWhat do you want to update about " << current->title << "?";
                 cout << "\n1. Title";
                 cout << "\n2. Year viewed";
                 cout << "\n3. Rating";
@@ -129,7 +128,7 @@ void updateMovie(Movie*& head, string title, int sequenceNumber)
         currentSequenceNumber++;
     }
     
-    cout << "\nNo movie with the title " << title << " was found" << endl;
+    cout << "\nNo movie was found" << endl;
 }
 
 void removeMovie(Movie*& head, string title, int sequenceNumber)
@@ -156,7 +155,6 @@ void removeMovie(Movie*& head, string title, int sequenceNumber)
         current = current->next;
         currentSequenceNumber++;
     }
-    cout << "\nNo movie with the title " << title << " was found." << endl;
 }
 
 void listMovies(Movie* head)
@@ -200,17 +198,22 @@ void menu(Movie* head, int& sequenceNumber)
         }
         else if(choice == 'U' || choice == 'u')
         {
-            cout << "\nEnter the name of the movie you want to update: ";
-            cin.ignore();
-            getline(cin, title);
-            updateMovie(head, title, sequenceNumber);
+            int number;
+            cout << "\nWhich movie to update (1 - " << sequenceNumber << ")?";
+            cin >> number;
+            updateMovie(head, number);
         }
         else if(choice == 'E' || choice == 'e')
         {
-            cout << "\nEnter the name of the movie you want to remove: ";
-            cin.ignore();
-            getline(cin, title);
-            removeMovie(head, title, sequenceNumber);
+            int number = 0;
+            cout << "\nWhich movie to remove (1 - " << sequenceNumber << ")?";
+            cin >> number;
+            if(number > sequenceNumber || number < 1)
+            {
+                cout << "No such movie.";
+            }
+            removeMovie(head, title, number);
+            sequenceNumber--;
         }
         else if(choice == 'L' || choice == 'l')
         {
