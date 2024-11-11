@@ -193,6 +193,23 @@ void arrangeTitle(Movie* head)
     }
 }
 
+void arrangeYear(Movie* head)
+{
+    if(head == nullptr)
+    {
+        return;
+    }
+    for(Movie* current = head; current; current = current->next)
+    {
+        for(Movie* tsugi = current->next; tsugi; tsugi = tsugi->next)
+        {
+            if(tsugi->year < current->year)
+            {
+                swap(current->next, tsugi->next);
+            }
+        }
+    }
+}
 void menu(Movie* head, int& sequenceNumber)
 {
     char choice;
@@ -249,6 +266,8 @@ void menu(Movie* head, int& sequenceNumber)
         else if(choice == 'V' || choice == 'v')
         {
             //call some function to arrange by year viewed
+            arrangeYear(head);
+            listMovies(head);
         }
         else if(choice == 'R' || choice == 'r')
         {
