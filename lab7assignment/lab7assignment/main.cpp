@@ -239,6 +239,29 @@ void arrangeTitle(Movie* firstMoviePtr)
     }
 }
 
+/* This function arranges the movies in the order of most recently viewed
+ Params: Movie pointer
+ Return: NONE*/
+void arrangeYear(Movie* firstMoviePtr)
+{
+    if(firstMoviePtr == nullptr) //don't do anything if the list is empty
+    {
+        return;
+    }
+    for(Movie* current = firstMoviePtr; current; current = current->next) //iterate through entire list
+    {
+        for(Movie* tsugi = current->next; tsugi; tsugi = tsugi->next) //bubble sort
+        {
+            if(tsugi->year > current->year) //if the year of the next movie is greater than current, swap them
+            {
+                //swapping the objects and the pointers...
+                swap(*current, *tsugi);
+                swap(current->next, tsugi->next);
+            }
+        }
+    }
+}
+
 void listMovies(Movie* firstMoviePtr)
 {
     //print the table
@@ -313,8 +336,8 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
         }
         else if(choice == 'V' || choice == 'v')
         {
-            //arrangeYear(head);
-           // listMovies(head);
+            arrangeYear(firstMoviePtr);
+            listMovies(firstMoviePtr);
         }
         else if(choice == 'R' || choice == 'r')
         {
