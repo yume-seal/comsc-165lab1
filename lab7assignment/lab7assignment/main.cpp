@@ -31,6 +31,42 @@ struct Movie //create movie struct
     Movie* next;
 };
 
+void serialiseUp(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
+{
+    ifstream fin;
+    fin.open("movies.txt");
+    while(fin.good())
+    {
+        string buff;
+        getline(fin, buff);
+        if(buff == "EOF")
+        {
+            break;
+        }
+        
+        Movie* temp = new Movie;
+        temp->title = buff;
+        fin >> temp->year;
+        fin.ignore(200, '\n');
+        fin >> temp->rating;
+        fin.ignore(200, '\n');
+        temp->next = nullptr;
+        if(!firstMoviePtr)
+        {
+            firstMoviePtr = temp;
+        }
+        if(lastMoviePtr)
+        {
+            lastMoviePtr->next = temp;
+            lastMoviePtr = temp;
+        }
+    }
+    fin.close();
+}
+
 int main() {
+    Movie* firstMoviePtr = nullptr;
+    Movie* lastMoviePtr = nullptr;
+    serialiseUp(firstMoviePtr, lastMoviePtr);
     return 0;
 }
