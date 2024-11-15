@@ -116,6 +116,78 @@ void addMovie(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
     }
 }
 
+/* This function allows user to update information about the movies in the linked list
+ Params: Movie pointer, integer value
+ Return: NONE*/
+void updateMovie(Movie*& firstMoviePtr, int sequenceNumber)
+{
+    Movie* current = firstMoviePtr;
+    firstMoviePtr = current; //keep track of which movie object we are on in the list
+    int choice = -1;
+    int currentSequenceNumber = 1; //
+
+    while(current != nullptr) //make sure we aren't updating a movie object that doesn't exist
+    {
+        if(currentSequenceNumber == sequenceNumber) //we have found the movie object the user wants to update
+        {
+            while(choice < 0 || choice > 3) //make sure the user didn't make a choice out of the interval
+            {
+                cout << "\nWhat do you want to update about " << current->title << "?";
+                cout << "\n1. Title";
+                cout << "\n2. Year viewed";
+                cout << "\n3. Rating";
+                cout << "\n...your choice: ";
+                cin >> choice;
+            }
+            
+            switch (choice)
+            {
+                case 1: { //update title
+                    string newTitle;
+                    cin.ignore();
+                    cout << "\nEnter the new title: ";
+                    getline(cin, newTitle);
+                    current->title = newTitle;
+                    break;
+                }
+                case 2: { //update year
+                    int year;
+                    cout << "\nEnter the new year: ";
+                    cin >> year;
+                    while(year < 1888)
+                    {
+                        cout << "\nInvalid input. Enter the new year: ";
+                        cin.clear();
+                        cin.ignore();
+                        cin >> year;
+                    }
+                    current->year = year;
+                    break;
+                }
+                case 3: { //update rating
+                    int rating;
+                    cout << "\nEnter the new rating: ";
+                    cin >> rating;
+                    while(rating > 5 || rating < 1)
+                    {
+                        cout << "\nInvalid input. Enter the new rating: ";
+                        cin.clear();
+                        cin.ignore();
+                        cin >> rating;
+                    }
+                    current->rating = rating;
+                    break;
+                }
+            }
+            return;
+        }
+        current = current->next; //go to the next object in the list
+        currentSequenceNumber++; //increment the count...
+    }
+    
+    cout << "\nNo movie was found" << endl;
+}
+
 /* This function allows the user to delete a movie from the linked list
  Params: Movie pointer, integer variable
  Return: NONE*/
@@ -142,6 +214,28 @@ void removeMovie(Movie*& firstMoviePtr, int sequenceNumber)
         previous = current;
         current = current->next; //iterate through the linkedlist
         currentSequenceNumber++;
+    }
+}
+
+/* This function arranges the movies in the table in alphabetical order
+ Params: Movie pointer
+ Return: NONE*/
+void arrangeTitle(Movie* firstMoviePtr)
+{
+    if(firstMoviePtr == nullptr) //if there is nothing in the list then don't do anything
+    {
+        return;
+    }
+    for(Movie* current = firstMoviePtr; current; current = current->next) //loop through the whole list
+    {
+        for(Movie* tsugi = current->next; tsugi; tsugi = tsugi->next) //do a bubble sort
+        {
+            if(tsugi->title < current->title) //if the next movie object is supposed to be in front of current then swap the objects and their pointers
+            {
+                swap(*current, *tsugi);
+                swap(current->next, tsugi->next);
+            }
+        }
     }
 }
 
@@ -194,7 +288,7 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
             int number;
             cout << "\nWhich movie to update (1 - " << sequenceNumber << ")?";
             cin >> number;
-          //  updateMovie(head, number);
+            updateMovie(firstMoviePtr, number);
         }
         else if(choice == 'E' || choice == 'e')
         {
@@ -214,8 +308,8 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
         }
         else if(choice == 'T' || choice == 't')
         {
-           // arrangeTitle(head);
-            //listMovies(head);
+            arrangeTitle(firstMoviePtr);
+            listMovies(firstMoviePtr);
         }
         else if(choice == 'V' || choice == 'v')
         {
