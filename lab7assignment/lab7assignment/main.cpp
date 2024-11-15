@@ -116,6 +116,35 @@ void addMovie(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
     }
 }
 
+/* This function allows the user to delete a movie from the linked list
+ Params: Movie pointer, integer variable
+ Return: NONE*/
+void removeMovie(Movie*& firstMoviePtr, int sequenceNumber)
+{
+    Movie* current = firstMoviePtr;
+    Movie* previous = nullptr;
+    int currentSequenceNumber = 1;
+    while(current != nullptr) //make sure there is something in the list
+    {
+        if(currentSequenceNumber == sequenceNumber) //we have found the movie to delete
+        {
+            if(previous == nullptr) //check if we are in the head of the list
+            {
+                firstMoviePtr = current->next; //make the head become the null pointer because it's going to be deleted
+            }
+            else
+            {
+                previous->next = current->next; //rearrange the objects so we can delete current and make the next object the head
+            }
+            delete current; //delete the movie object
+            return;
+        }
+        previous = current;
+        current = current->next; //iterate through the linkedlist
+        currentSequenceNumber++;
+    }
+}
+
 void listMovies(Movie* firstMoviePtr)
 {
     //print the table
@@ -176,8 +205,8 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
             {
                 cout << "No such movie.";
             }
-           // removeMovie(head, number);
-           // sequenceNumber--;
+            removeMovie(firstMoviePtr,number);
+            sequenceNumber--;
         }
         else if(choice == 'L' || choice == 'l')
         {
