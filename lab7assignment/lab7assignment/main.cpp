@@ -16,6 +16,8 @@ using std::ifstream;
 using std::ofstream;
 
 #include <iomanip>
+using std::left;
+using std::right;
 
 #include <algorithm>
 using std::swap;
@@ -114,6 +116,23 @@ void addMovie(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
     }
 }
 
+void listMovies(Movie* firstMoviePtr)
+{
+    //print the table
+    cout << left << std::setw(5) << "#";
+    cout << left << std::setw(40) << "Title" ;
+    cout << left << std::setw(10) << "Viewed";
+    cout << left << std::setw(10) << "Rating" << endl;
+    cout << right << std::setfill('-') << std::setw(4) << " " << std::setw(40) << " " << std::setw(10) << " " << std::setw(10) << "\n";
+    int count = 1; //count the objects
+    while(firstMoviePtr != nullptr) //print all the objects in the table
+    {
+        cout << std::setfill(' ') << left << std::setw(5) << count << left << std::setw(40) << firstMoviePtr->title << left << std::setw(10) << firstMoviePtr->year << left << std::setw(10) << firstMoviePtr->rating << "\n";
+        firstMoviePtr = firstMoviePtr->next;
+        count++;
+    }
+}
+
 /* This function prints out the menu
  Params: Movie pointer, integer value
  Return: NONE*/
@@ -162,7 +181,7 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
         }
         else if(choice == 'L' || choice == 'l')
         {
-           // listMovies(head);
+            listMovies(firstMoviePtr);
         }
         else if(choice == 'T' || choice == 't')
         {
