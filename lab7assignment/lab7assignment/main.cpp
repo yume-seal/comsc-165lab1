@@ -262,6 +262,28 @@ void arrangeYear(Movie* firstMoviePtr)
     }
 }
 
+/* This function arranges the movies by the rating
+ Params: Movie pointer
+ Return: None*/
+void arrangeRating(Movie* firstMoviePtr)
+{
+    if(firstMoviePtr == nullptr) //don't do anything if the list is empty
+    {
+        return;
+    }
+    for(Movie* current = firstMoviePtr; current; current = current->next) //iterate through the whole list
+    {
+        for(Movie* tsugi = current->next; tsugi; tsugi = tsugi->next) //bubble sort
+        {
+            if(tsugi->rating > current->rating) //if the rating of the next movie is greater than put it in front of current
+            {
+                swap(*current, *tsugi); //swap the two pointers
+                swap(current->next, tsugi->next);
+            }
+        }
+    }
+}
+
 void listMovies(Movie* firstMoviePtr)
 {
     //print the table
@@ -341,8 +363,8 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
         }
         else if(choice == 'R' || choice == 'r')
         {
-          //  arrangeRating(head);
-            //listMovies(head);
+            arrangeRating(firstMoviePtr);
+            listMovies(firstMoviePtr);
         }
         else if(choice == 'Q' || choice == 'q') //exit the function if the choice is q
         {
