@@ -53,13 +53,13 @@ void serialiseUp(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
         fin >> temp->rating;
         fin.ignore(200, '\n');
         temp->next = nullptr;
-        if(!firstMoviePtr)
-        {
-            firstMoviePtr = temp;
-        }
         if(lastMoviePtr)
         {
             lastMoviePtr->next = temp;
+        }
+        else
+        {
+            firstMoviePtr = temp;
             lastMoviePtr = temp;
         }
     }
@@ -301,6 +301,20 @@ void listMovies(Movie* firstMoviePtr)
     }
 }
 
+void serialiseDown(Movie* firstMoviePtr)
+{
+    ofstream fout;
+    fout.open("movies.txt");
+    while(firstMoviePtr)
+    {
+        fout << firstMoviePtr->title << "\n";
+        fout << firstMoviePtr->year << "\n";
+        fout << firstMoviePtr->rating << "\n";
+        firstMoviePtr = firstMoviePtr->next;
+    }
+    fout << "EOF\n";
+    fout.close();
+}
 /* This function prints out the menu
  Params: Movie pointer, integer value
  Return: NONE*/
@@ -384,5 +398,13 @@ int main() {
     int sequenceNumber = 0;
     serialiseUp(firstMoviePtr, lastMoviePtr);
     menu(firstMoviePtr, lastMoviePtr, sequenceNumber);
+    serialiseDown(firstMoviePtr);
+    
+    while(firstMoviePtr)
+    {
+        Movie* movie = firstMoviePtr;
+        firstMoviePtr = firstMoviePtr->next;
+        delete movie;
+    }
     return 0;
 }
