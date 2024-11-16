@@ -1,9 +1,10 @@
-//
-//  main.cpp
-//  lab7assignment
-//
-//  Created by Sufyan Adam on 14/11/24.
-//
+/*
+ * Name: Madeeha Adam
+ * Assignment: Lab 7 - Queue
+ * Compiler used: Xcode
+ * Description: This program stores user entered information about movies in a table
+ and arranges them in different ways using a queue
+*/
 
 #include <iostream>
 using std::cin;
@@ -33,10 +34,13 @@ struct Movie //create movie struct
     Movie* next;
 };
 
+/* This function reads all the previously entered movies from a file and puts them in the queue
+   Params: 2 Movie pointers, one for the first item in the queue and one for the last
+ Return: NONE*/
 void serialiseUp(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
 {
-    ifstream fin;
-    fin.open("movies.txt");
+    ifstream fin; //create new ifstram object to open the file
+    fin.open("movies.txt"); //open the filr
     while(fin.good())
     {
         string buff;
@@ -46,13 +50,14 @@ void serialiseUp(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
             break;
         }
         
-        Movie* temp = new Movie;
-        temp->title = buff;
+        Movie* temp = new Movie; //make a movie object to gather the information and add to queue
+        temp->title = buff; //put the information in the file in the movie object
         fin >> temp->year;
         fin.ignore(200, '\n');
         fin >> temp->rating;
         fin.ignore(200, '\n');
         temp->next = nullptr;
+        //keep the order of the objects in the queue
         if(lastMoviePtr)
         {
             lastMoviePtr->next = temp;
@@ -66,7 +71,7 @@ void serialiseUp(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
     fin.close();
 }
 
-/* This function allows the user to create a new movie object and put it in the linked list
+/* This function allows the user to create a new movie object and put it in the queue
  Params: Movie pointer
  Return: NONE*/
 void addMovie(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
@@ -116,7 +121,7 @@ void addMovie(Movie*& firstMoviePtr, Movie*& lastMoviePtr)
     }
 }
 
-/* This function allows user to update information about the movies in the linked list
+/* This function allows user to update information about the movies in the queue
  Params: Movie pointer, integer value
  Return: NONE*/
 void updateMovie(Movie*& firstMoviePtr, int sequenceNumber)
@@ -188,7 +193,7 @@ void updateMovie(Movie*& firstMoviePtr, int sequenceNumber)
     cout << "\nNo movie was found" << endl;
 }
 
-/* This function allows the user to delete a movie from the linked list
+/* This function allows the user to delete a movie from the queue
  Params: Movie pointer, integer variable
  Return: NONE*/
 void removeMovie(Movie*& firstMoviePtr, int sequenceNumber)
@@ -212,7 +217,7 @@ void removeMovie(Movie*& firstMoviePtr, int sequenceNumber)
             return;
         }
         previous = current;
-        current = current->next; //iterate through the linkedlist
+        current = current->next; //iterate through the queue
         currentSequenceNumber++;
     }
 }
@@ -301,19 +306,22 @@ void listMovies(Movie* firstMoviePtr)
     }
 }
 
+/* This function saves all the movies in the queue
+ Params: Movie pointer
+ Return: NONE*/
 void serialiseDown(Movie* firstMoviePtr)
 {
-    ofstream fout;
-    fout.open("movies.txt");
-    while(firstMoviePtr)
+    ofstream fout; //create new ofstream object
+    fout.open("movies.txt"); //open the file
+    while(firstMoviePtr) //save all the movies that exist
     {
         fout << firstMoviePtr->title << "\n";
         fout << firstMoviePtr->year << "\n";
         fout << firstMoviePtr->rating << "\n";
         firstMoviePtr = firstMoviePtr->next;
     }
-    fout << "EOF\n";
-    fout.close();
+    fout << "EOF\n"; //mark end of file
+    fout.close(); //close the file
 }
 /* This function prints out the menu
  Params: Movie pointer, integer value
@@ -393,14 +401,15 @@ void menu(Movie*& firstMoviePtr, Movie*& lastMoviePtr, int& sequenceNumber)
 }
 
 int main() {
+    //create empty queue
     Movie* firstMoviePtr = nullptr;
     Movie* lastMoviePtr = nullptr;
     int sequenceNumber = 0;
-    serialiseUp(firstMoviePtr, lastMoviePtr);
+    serialiseUp(firstMoviePtr, lastMoviePtr); //get all the information previously entered
     menu(firstMoviePtr, lastMoviePtr, sequenceNumber);
-    serialiseDown(firstMoviePtr);
+    serialiseDown(firstMoviePtr); //save all the information
     
-    while(firstMoviePtr)
+    while(firstMoviePtr) //deallocate all nodes
     {
         Movie* movie = firstMoviePtr;
         firstMoviePtr = firstMoviePtr->next;
