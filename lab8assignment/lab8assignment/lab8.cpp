@@ -1,6 +1,6 @@
 /*
 *  Name: Madeeha Adam
-*  Assignment: Lab 4 - Read and Write Course Objects Using a Text File
+*  Assignment: Lab 8 - Read and Write Course Objects Using a Binary File
 *  Compiler used: Xcode
 *  Description: This program allows the user to keep track of all their courses by allowing them to enter their courses and then view them in a table. It also saves the user entered course information to a text file and then loads it into the table when the
     user runs the program again.
