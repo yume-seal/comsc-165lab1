@@ -1,9 +1,10 @@
-//
-//  main.cpp
-//  lab10assignment
-//
-//  Created by Sufyan Adam on 14/12/24.
-//
+/*
+* Name: Madeeha Adam
+* Assignment: Lab 10 - Tracking Expenses Using OOP
+* Compiler used: Xcode
+* Description: The program allows the user to enter information about expenses and stores them in an array. It allows the user to also search through the array to find different
+ expenses.
+*/
 
 #include <iostream>
 #include "expense.h"
@@ -33,7 +34,12 @@ void searchAmount(Expense expenses[], int& size)
         if(expenses[i].getAmount() >= amount)
         {
             cout << "AMOUNT (" << expenses[i].getAmount() << ") DESC (" << expenses[i].getDescription() << ")" << endl;
+            found = true;
         };
+    }
+    if(!found)
+    {
+        cout << "\nNo expense was found." << endl;
     }
 }
 
@@ -63,6 +69,10 @@ void searchString(Expense expenses[], int& size)
     }
 }
 
+/* This function allows the user to enter an expense entry and returns the expense object
+ that the user entered.
+ Parameters: NONE
+ Return: Expense object*/
 Expense spend()
 {
     Expense newExpense; //make new empty expense object for user to fill
@@ -119,6 +129,12 @@ void showAll(Expense expenses[], int size)
     }
 }
 
+/* This function displays the menu for the user to see what they want to do. Based on the
+ option the user selects, it calls an appropriate function or terminates the program.
+ Parameter: Array of expenses (IN)
+            Integer value (IN) that represents the number of valid objects in the array
+ Return: NONE
+ */
 void menu(Expense expenses[], int& size)
 {
     int option = 0;
@@ -169,10 +185,11 @@ void menu(Expense expenses[], int& size)
     }
 }
 
+/* this is the main function */
 int main(int argc, const char * argv[]) {
-    const int CAPACITY = 100;
+    const int CAPACITY = 100;  //this is the max amount of expenses the user can enter
     Expense expenses[CAPACITY];
-    int size = -1;
-    menu(expenses, size);
+    int size = -1; //set the size to -1 bc 0 is first element and first element will only // be added when user enters it
+    menu(expenses, size);  //call the menu function to fill the array and stuff.
     return 0;
 }

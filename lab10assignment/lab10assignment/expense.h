@@ -17,14 +17,15 @@ private:
     string description;
     
 public:
+    //expense constructor
     Expense();
     Expense(double amount, string description);
+    //getter and setter methods
     double getAmount() const;
     void setAmount(double amount);
     string getDescription() const;
-    
     void setDescription(string description);
-    
+    //method to check if the expense has specific string in description
     bool contains(string& searchString) const;
 };
 #endif
