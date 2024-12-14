@@ -18,12 +18,12 @@ private:
     
 public:
     Expense();
-    Expense(double amount, const string description);
+    Expense(double amount, string description);
     double getAmount() const;
     void setAmount(double amount);
-    string& getDescription() const;
+    string getDescription() const;
     
-    void setDescription(string& description);
+    void setDescription(string description);
     
     bool contains(string& searchString) const;
 };
