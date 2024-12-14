@@ -1,0 +1,31 @@
+Is your vocaloid female?
+Does your vocaloid have long hair?
+Does your vocaloid have pink hair?
+It's Megurine Luka
+EOF
+EOF
+It's Hatsune Miku
+EOF
+EOF
+Does your vocaloid have brown hair?
+It's Meiko
+EOF
+EOF
+It's Kagamine Rin
+EOF
+EOF
+Is your vocaloid blond?
+Does your vocaloid have a bandage over his eye?
+It's Oliver
+EOF
+EOF
+It's Kagamine Len
+EOF
+EOF
+Does your vocaloid like ice cream?
+It's Kaito
+EOF
+EOF
+It's Gakupo Kamui
+EOF
+EOF
